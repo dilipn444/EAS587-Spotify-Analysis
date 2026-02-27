@@ -4,7 +4,7 @@
 ### Team Members
 1. Dilip Nallamasa  
 2. Lolabattu Harsha  
-3. Pamulapati Pavan  
+3. Pamulapati venkat sai Pavan  
 
 
 ## Project Overview
