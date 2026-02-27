@@ -16,3 +16,5 @@ data/raw/
 
 Expected filename:
 spotify_tracks.csv
+
+This dataset exceeds GitHub’s recommended file size limits, so it is not stored directly in this repository.
