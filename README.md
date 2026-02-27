@@ -1,5 +1,5 @@
 # EAS 587 – Phase 1  
-## Spotify Popularity Prediction Analysis
+## Spotify Tracks Analysis
 
 ### Team Members
 1. Dilip Nallamasa  
