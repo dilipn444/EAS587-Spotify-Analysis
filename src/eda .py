@@ -5,24 +5,18 @@ import seaborn as sns
 
 def run_eda():
 
-    # Validate input file path before processing
+   
     if not os.path.exists(INPUT_FILE):
         print(f"Error: Input file not found at {INPUT_FILE}")
         return
-
-    # Load dataset and ensure output directory exists
     df = pd.read_csv(INPUT_FILE)
     os.makedirs(OUTPUT_DIR, exist_ok=True)
-
-    # Apply consistent visualization theme
     sns.set_theme(style="whitegrid")
-
-    # 1. Generate descriptive statistics summary
     desc_stats = df.describe()
     desc_stats.to_csv(f"{OUTPUT_DIR}/1_descriptive_statistics.csv")
     print("Saved descriptive statistics.")
 
-    # 2. Create correlation heatmap for numeric features
+    
     plt.figure(figsize=(12, 10))
     numeric_df = df.select_dtypes(include=['float64', 'int64'])
     corr = numeric_df.corr()
@@ -33,7 +27,7 @@ def run_eda():
     plt.close()
     print("Saved correlation heatmap.")
 
-    # 3. Plot popularity distribution to inspect skewness
+    
     if 'popularity' in df.columns:
         plt.figure(figsize=(10, 6))
         sns.histplot(df['popularity'], bins=30, kde=True, color='purple')
@@ -42,35 +36,33 @@ def run_eda():
         plt.close()
         print("Saved popularity distribution.")
 
-    # 4. Scatter plot: Danceability vs Energy (sampled for performance)
+    
     if 'danceability' in df.columns and 'energy' in df.columns:
         plt.figure(figsize=(10, 6))
         sns.scatterplot(
             data=df.sample(min(1000, len(df))),
             x='danceability',
             y='energy',
-            alpha=0.5
-        )
+            alpha=0.5)
+        
         plt.title("Danceability vs Energy (Sampled)")
         plt.savefig(f"{OUTPUT_DIR}/4_dance_vs_energy_scatter.png")
         plt.close()
         print("Saved scatter plot.")
 
-    # 5. Boxplot: Duration grouped by popularity tier
     if 'popularity_tier' in df.columns and 'duration_mins' in df.columns:
         plt.figure(figsize=(10, 6))
         sns.boxplot(
             x='popularity_tier',
             y='duration_mins',
             data=df,
-            palette="Set2"
-        )
+            palette="Set2")
         plt.title("Song Duration by Popularity Tier")
         plt.savefig(f"{OUTPUT_DIR}/5_duration_boxplot.png")
         plt.close()
         print("Saved duration boxplot.")
 
-    # 6. Count plot for explicit vs non-explicit tracks
+    
     if 'is_explicit' in df.columns:
         plt.figure(figsize=(6, 4))
         sns.countplot(x='is_explicit', data=df)
@@ -79,7 +71,7 @@ def run_eda():
         plt.close()
         print("Saved explicit content count plot.")
 
-    # 7. Violin plot for loudness distribution analysis
+    
     if 'loudness' in df.columns:
         plt.figure(figsize=(10, 6))
         sns.violinplot(x=df['loudness'], color='orange')
@@ -88,7 +80,7 @@ def run_eda():
         plt.close()
         print("Saved loudness violin plot.")
 
-    # 8. Time signature frequency analysis (one-hot encoded columns)
+    
     ts_cols = [c for c in df.columns if 'ts_' in c]
     if ts_cols:
         ts_sums = df[ts_cols].sum().sort_values(ascending=False)
@@ -99,7 +91,7 @@ def run_eda():
         plt.close()
         print("Saved time signature analysis.")
 
-    # 9. Hexbin plot for dense relationship visualization
+    
     if 'valence' in df.columns and 'danceability' in df.columns:
         plt.figure(figsize=(10, 8))
         plt.hexbin(df['valence'], df['danceability'], gridsize=20, cmap='Blues')
@@ -109,7 +101,7 @@ def run_eda():
         plt.close()
         print("Saved mood vs danceability hexbin plot.")
 
-    # 10. Pairplot overview of selected key features
+   
     subset_cols = ['popularity', 'energy', 'acousticness', 'instrumentalness']
     subset_cols = [c for c in subset_cols if c in df.columns]
 
