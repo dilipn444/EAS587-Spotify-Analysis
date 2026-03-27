@@ -69,14 +69,14 @@ The trained Random Forest model is served as an MCP tool via FastMCP.
 
 ### Setup
 ```bash
-pip install mcp[cli] fastmcp
+pip install -r requirements.txt
 ```
 
 Make sure models/trained_model.pkl exists (run train_random_forest.py first).
 
 ### Start the server
 ```bash
-python src/mcp/server.py
+python src/mcp/mcp_server.py
 ```
 
 ### Available tools
@@ -110,6 +110,8 @@ acousticness 0.1, instrumentalness 0.0, tempo 128, loudness -5, speechiness 0.05
 - All random seeds set to 42 across all scripts
 - Pipeline verified end-to-end in a fresh Google Colab session by a second team member
 - All outputs matched reference results within floating-point tolerance
+- The MCP server was tested by cloning the repository, installing dependencies from requirements.txt, and running python src/mcp/mcp_server.py
+- The server started successfully and waited for stdio input as expected
 
 ---
 
