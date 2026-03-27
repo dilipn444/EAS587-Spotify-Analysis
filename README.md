@@ -26,37 +26,6 @@ Phase 2 builds on Phase 1's cleaned dataset and applies 6 algorithms:
 
 One trained model (Random Forest) is deployed as an MCP server.
 
----
-
-## Repository Structure
-project-repo/
-├── README.md
-├── requirements.txt
-├── data/
-│   ├── raw/
-│   └── processed/
-│       └── cleaned_spotify_tracks.csv
-├── src/
-│   ├── data_collection.py
-│   ├── data_cleaning.py
-│   ├── eda.py
-│   └── models/
-│       ├── train_decision_tree.py
-│       ├── train_knn.py
-│       ├── train_naive_bayes.py
-│       ├── train_kmeans.py
-│       ├── train_random_forest.py
-│       └── train_pca.py
-│   └── mcp/
-│       ├── server.py
-│       └── README.md
-├── models/
-│   └── trained_model.pkl
-├── results/
-│   └── (all generated figures saved here)
-
----
-
 ## Phase 1 Summary
 
 - Data acquired from Kaggle (Spotify Tracks Dataset)
