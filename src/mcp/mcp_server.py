@@ -7,6 +7,16 @@ from mcp.server.fastmcp import FastMCP
 mcp = FastMCP("music-popularity-model")
 
 MODEL_PATH = Path(__file__).resolve().parents[2] / "models" / "trained_model.pkl"
+EXPECTED_FEATURES = [
+    "danceability",
+    "energy",
+    "valence",
+    "acousticness",
+    "instrumentalness",
+    "tempo",
+    "loudness",
+    "speechiness",
+]
 
 if not MODEL_PATH.exists():
     raise FileNotFoundError(
@@ -16,6 +26,11 @@ if not MODEL_PATH.exists():
 
 with open(MODEL_PATH, "rb") as f:
     model = pickle.load(f)
+
+if hasattr(model, "n_features_in_") and int(model.n_features_in_) != 8:
+    raise ValueError(
+        f"Expected model with 8 input features, but found {model.n_features_in_}."
+    )
 
 
 def validate_range(name: str, value: float, min_value: float, max_value: float) -> None:
@@ -38,7 +53,7 @@ def predict(
 ) -> dict[str, Any]:
     """
     Predict song popularity class using the trained model.
-    Returns: High, Medium, or Low
+    Returns: High, Medium, or Low.
     """
 
     validate_range("danceability", danceability, 0.0, 1.0)
@@ -55,14 +70,14 @@ def predict(
         raise ValueError("loudness must be in a realistic range (-80 to 5 dB).")
 
     features = [[
-        danceability,
-        energy,
-        valence,
-        acousticness,
-        instrumentalness,
-        tempo,
-        loudness,
-        speechiness,
+        float(danceability),
+        float(energy),
+        float(valence),
+        float(acousticness),
+        float(instrumentalness),
+        float(tempo),
+        float(loudness),
+        float(speechiness),
     ]]
 
     prediction = model.predict(features)[0]
@@ -80,6 +95,7 @@ def predict(
             "speechiness": speechiness,
         },
         "model_type": type(model).__name__,
+        "expected_features": EXPECTED_FEATURES,
     }
 
     if hasattr(model, "predict_proba") and hasattr(model, "classes_"):
@@ -97,6 +113,7 @@ def model_info() -> dict[str, Any]:
     """Return basic information about the deployed model."""
     info: dict[str, Any] = {
         "model_type": type(model).__name__,
+        "expected_features": EXPECTED_FEATURES,
         "n_features": int(getattr(model, "n_features_in_", 0)),
     }
 
