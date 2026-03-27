@@ -5,4 +5,4 @@ seaborn
 scikit-learn==1.6.1
 mcp[cli]
 fastmcp
-pickle5
+
