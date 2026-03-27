@@ -25,9 +25,18 @@ from sklearn.metrics import (
 )
 
 # ── Global settings ──────────────────────────────────────────
-SEED           = 42
-BASE           = 'project_repo'
-PROCESSED_PATH = f'{BASE}/data/processed/cleaned_spotify_tracks.csv'
+from pathlib import Path
+
+SEED = 42
+REPO_ROOT = Path(__file__).resolve().parents[2]
+PROCESSED_PATH = REPO_ROOT / "data" / "processed" / "cleaned_spotify_tracks.csv"
+
+FEATURES = [
+    'danceability', 'energy', 'valence', 'acousticness',
+    'instrumentalness', 'tempo', 'loudness', 'speechiness'
+]
+
+np.random.seed(SEED)
 FEATURES       = ['danceability', 'energy', 'valence', 'acousticness',
                   'instrumentalness', 'tempo', 'loudness', 'speechiness']
 np.random.seed(SEED)
