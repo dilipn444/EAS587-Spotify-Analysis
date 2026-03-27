@@ -140,14 +140,3 @@ Notes
 - The server waits for stdio input after startup, so it may appear to keep running until interrupted.
 
 
-  
-`requirements.txt`
-```txt
-pandas
-numpy
-matplotlib
-seaborn
-mcp[cli]
-scikit-learn==1.6.1
-
-
