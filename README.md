@@ -265,6 +265,120 @@ Install everything with:
 ```bash
 pip install -r requirements.txt
 ```
+---
+
+## Phase 3 — Databricks, Spark MLlib & Delta Lake
+
+Phase 3 scales the Spotify popularity prediction pipeline using **Databricks**, **Apache Spark**, **Spark MLlib**, and **Delta Lake**, implementing a full **Medallion Architecture (Bronze → Silver → Gold)**.
+
+---
+
+## Databricks Notebooks
+
+All Phase 3 notebooks are located at:
+
+src/notebooks/databricks/
+
+
+Execution order:
+
+1. `01_bronze_layer.ipynb`
+2. `02_silver_layer.ipynb`
+3. `03_gold_layer.ipynb`
+4. `04_mllib_models.ipynb`
+5. `05_additional_source.ipynb`
+
+---
+
+## Data Storage (Unity Catalog Volume)
+
+Raw dataset stored in:
+/Volumes/workspace/default/spotify_data/raw_datset.csv
+
+
+All processed data is stored as **Delta Tables**.
+
+---
+
+## Medallion Architecture
+
+### Bronze Layer
+
+- Table: `bronze_spotify`
+- Raw ingestion from CSV
+- No transformations applied
+
+---
+
+### Silver Layer
+
+- Table: `silver_spotify`
+- Data cleaning and preprocessing:
+  - Removed duplicates
+  - Dropped index column
+  - Fixed malformed numeric values using `try_cast`
+  - Removed invalid/null feature rows
+
+---
+
+### Gold Layer
+
+Tables created:
+
+- `gold_genre_metrics`
+- `gold_spotify_ml_features`
+
+Features:
+- Aggregated genre-level insights
+- ML-ready dataset
+- Created target variable `popularity_tier`
+
+---
+
+## Spark MLlib Models
+
+Two models were implemented using Spark MLlib:
+
+| Model | Accuracy | F1 Score |
+|---|---:|---:|
+| Decision Tree | 0.5917 | 0.5555 |
+| Random Forest | 0.6222 | 0.5777 |
+
+Comparison table saved as:
+gold_model_comparison
+
+
+Models saved to:
+/Volumes/workspace/default/spotify_data/dt_model
+/Volumes/workspace/default/spotify_data/rf_model
+
+
+---
+
+## Additional Data Source (Task 2)
+
+An artist-level dataset was derived and joined with track-level data.
+
+Table created:
+gold_combined_dataset
+
+
+### Insights:
+
+1. Artist average popularity improves prediction context  
+2. Frequent artists show stable popularity trends  
+3. Aggregated features enhance model input quality  
+
+---
+
+## Technologies Used (Phase 3)
+
+- Databricks
+- Apache Spark
+- PySpark
+- Spark MLlib
+- Delta Lake
+
 
 ---
 
