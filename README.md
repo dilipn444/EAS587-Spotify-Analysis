@@ -2,7 +2,7 @@
 
 **Course:** EAS 587 – Introduction to Data Science (Spring 2026)  
 **Team:** TriForce  
-**Phase:** 2 — Machine Learning & Statistical Analysis
+**Phase:** 3 — Scalable Data Processing & ML Pipeline
 
 ---
 
@@ -43,11 +43,11 @@ EAS587-Spotify-Analysis/
 │   └── figures/                    ← All generated visualizations
 │
 └── src/
-    ├── data_collection.py          ← Phase 1: data acquisition
-    ├── data_cleaning.py            ← Phase 1: preprocessing pipeline
-    ├── eda.py                      ← Phase 1: exploratory data analysis
+    ├── data_collection.py
+    ├── data_cleaning.py
+    ├── eda.py
     │
-    ├── models/                     ← Phase 2: ML algorithm scripts
+    ├── models/
     │   ├── train_decision_tree.py
     │   ├── train_knn.py
     │   ├── train_naive_bayes.py
@@ -55,9 +55,17 @@ EAS587-Spotify-Analysis/
     │   ├── train_random_forest.py
     │   └── train_pca.py
     │
-    └── mcp/                        ← Phase 2: MCP deployment
-        ├── mcp_server.py           ← FastMCP server exposing prediction tool
-        └── README.md               ← MCP-specific setup instructions
+    ├── notebooks/
+    │   └── databricks/
+    │       ├── 01_bronze_layer.ipynb
+    │       ├── 02_silver_layer.ipynb
+    │       ├── 03_gold_layer.ipynb
+    │       ├── 04_mllib_models.ipynb
+    │       └── 05_additional_source.ipynb
+    │
+    └── mcp/
+        ├── mcp_server.py
+        └── README.md
 ```
 
 ---
