@@ -6,16 +6,6 @@
 
 ---
 
-## Team Members
-
-| Name | UB Person Number |
-|---|---|
-| Dilip Nallamasa | 50668608 |
-| Harsha Adinarayanaraju Lolabattu | 50682313 |
-| Pamulapati Venkat Sai Pavan | 50660304 |
-
----
-
 ## Project Overview
 
 This project applies machine learning and statistical modeling to a Spotify tracks dataset to predict and understand song **popularity tiers** (Low / Medium / High) based on audio features such as danceability, energy, tempo, valence, and more.
